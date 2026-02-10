@@ -64,7 +64,7 @@ class HeavyWeightSurchargeStrategyTest extends TestCase
 
         $result  = $this->strategy->calculate($price, $heavyProduct, $this->context);
 
-        $expected = $price->add(Money::BRL(1500));
+        $expected = Money::BRL(11500);
         $this->assertTrue($expected->equals($result));
     }
 

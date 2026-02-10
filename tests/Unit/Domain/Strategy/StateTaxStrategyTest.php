@@ -6,19 +6,23 @@ namespace Tests\Unit\Domain\Strategy;
 
 use App\Domain\Entity\CalculationContext;
 use App\Domain\Entity\Product;
-use App\Domain\Strategy\QuantityDiscountStrategy;
+use App\Domain\Strategy\StateTaxStrategy;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
-class QuantityDiscountStrategyTest extends TestCase
+class StateTaxStrategyTest extends TestCase
 {
 
-    private QuantityDiscountStrategy $strategy;
+    private StateTaxStrategy $strategy;
     private Product $product;
 
     protected function setUp(): void
     {
-        $this->strategy = new QuantityDiscountStrategy();
+        $taxesConfig = [
+            'SP' => ['ICMS' => 0.18, 'IPI' => 0.05],
+            'RJ' => ['ICMS' => 0.20]
+        ];
+        $this->strategy = new StateTaxStrategy($taxesConfig);
         $this->product = new Product(
             id: 1,
             name: 'Test Product',
@@ -27,35 +31,35 @@ class QuantityDiscountStrategyTest extends TestCase
         );
     }
 
-    public function testNoDiscountForLessThan10Items(): void
+    public function testStateTaxForUnregisteredState(): void
     {
         $price = Money::BRL(10000);
-        $context = new CalculationContext(9, 'varejo', 'AL', false);
+        $context = new CalculationContext(9, 'varejo', 'MG', false);
 
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
         $this->assertTrue($price->equals($result));
     }
 
-    public function test3percentDiscountFor10To49Items(): void
+    public function testStateTaxForStateWithOneTax(): void
     {
         $price = Money::BRL(10000);
-        $context = new CalculationContext(10, 'varejo', 'AL', false);
+        $context = new CalculationContext(10, 'varejo', 'RJ', false);
 
         $result  = $this->strategy->calculate($price, $this->product, $context);
+        $expected = Money::BRL(12000);
 
-        $expected = Money::BRL(9700);
         $this->assertTrue($expected->equals($result));
     }
 
-    public function test5percentDiscountFor50OrMoreItems(): void
+    public function testStateTaxForStateWithMultipleTaxes(): void
     {
         $price = Money::BRL(10000);
-        $context = new CalculationContext(50, 'varejo', 'AL', false);
+        $context = new CalculationContext(10, 'varejo', 'SP', false);
 
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
-        $expected = Money::BRL(9500);
+        $expected = Money::BRL(12300);
         $this->assertTrue($expected->equals($result));
     }
 
