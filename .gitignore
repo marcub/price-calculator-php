@@ -7,3 +7,4 @@ phpunit.xml
 /build/
 .phpunit.cache/
 database/database.sqlite
+/storage/
