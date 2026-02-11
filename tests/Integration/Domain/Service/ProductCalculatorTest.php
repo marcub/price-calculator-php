@@ -18,7 +18,16 @@ class ProductCalculatorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->calculator = ProductCalculatorFactory::create();
+        $testConfig = [
+            'is_profit_margin_percentage' => true,
+            'profit_margin' => 0.20,
+            'state_taxes' => [
+                'SP' => ['ICMS' => 0.18, 'IPI' => 0.05],
+                'RJ' => ['ICMS' => 0.20]
+            ]
+        ];
+
+        $this->calculator = ProductCalculatorFactory::create($testConfig);
     }
 
     public function testCalculatorPriceForVarejoNonPremiumCustomerHeavyProduct10Items(): void
