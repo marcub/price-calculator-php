@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Strategy;
 
 use App\Domain\Entity\CalculationContext;
+use App\Domain\Entity\CalculationResult;
 use App\Domain\Entity\Product;
 use Money\Money;
 
@@ -23,17 +24,21 @@ class ProfitMarginStrategy implements PricingStrategyInterface
         Money $price,
         Product $product,
         CalculationContext $context
-    ): Money {
+    ): CalculationResult {
+
+        $rulesApplied = [];
 
         if ($this->profitMarginPercentage !== null) {
             $multiplier = (string) (1 + $this->profitMarginPercentage);
             $price = $price->multiply($multiplier);
+            $rulesApplied[] = "Profit margin percentage applied";
         }
 
         if ($this->profitMarginAmount !== null) {
             $price = $price->add($this->profitMarginAmount);
+            $rulesApplied[] = "Profit margin amount applied";
         }
 
-        return $price;
+        return new CalculationResult($price, $rulesApplied);
     }
 }

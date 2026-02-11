@@ -7,14 +7,14 @@ namespace Tests\Integration\Domain\Service;
 use App\Domain\Entity\CalculationContext;
 use App\Domain\Entity\Product;
 use App\Domain\Factory\ProductCalculatorFactory;
-use App\Domain\Service\ProductCalculator;
+use App\Domain\Service\ProductCalculatorInterface;
 use PHPUnit\Framework\TestCase;
 use Money\Money;
 
 class ProductCalculatorTest extends TestCase
 {
 
-    private ProductCalculator $calculator;
+    private ProductCalculatorInterface $calculator;
 
     protected function setUp(): void
     {
@@ -33,12 +33,12 @@ class ProductCalculatorTest extends TestCase
 
         $context = new CalculationContext(10, 'varejo', 'RJ', false);
 
-        $finalPrice = $this->calculator->calculatePrice($product, $context);
+        $result = $this->calculator->calculatePrice($product, $context);
 
         $expected = Money::BRL(141480);
 
         $this->assertTrue(
-            $finalPrice->equals($expected),
+            $expected->equals($result->price),
             'The final integrated price did not match the expected R$ 1.414,80'
         );
     }

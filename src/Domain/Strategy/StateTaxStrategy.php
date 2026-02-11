@@ -6,6 +6,7 @@ namespace App\Domain\Strategy;
 
 use App\Domain\Entity\Product;
 use App\Domain\Entity\CalculationContext;
+use App\Domain\Entity\CalculationResult;
 use Money\Money;
 
 class StateTaxStrategy implements PricingStrategyInterface
@@ -23,11 +24,11 @@ class StateTaxStrategy implements PricingStrategyInterface
         Money $price,
         Product $product,
         CalculationContext $context
-    ): Money {
+    ): CalculationResult {
         $state = $context->state;
 
         if (!array_key_exists($state, $this->taxRates)) {
-            return $price;
+            return new CalculationResult($price, []);
         }
 
         $stateTaxes = $this->taxRates[$state];
@@ -39,6 +40,6 @@ class StateTaxStrategy implements PricingStrategyInterface
 
         $multiplier = (string) (1 + $totalTaxRate);
 
-        return $price->multiply($multiplier);
+        return new CalculationResult($price->multiply($multiplier), ['State tax applied']);
     }
 }

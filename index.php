@@ -65,7 +65,9 @@ try {
     $baseCalculator = ProductCalculatorFactory::create();
     $calculator = new CachedProductCalculator($baseCalculator, $fileCache);
 
-    $finalPrice = $calculator->calculatePrice($product, $context);
+    $result = $calculator->calculatePrice($product, $context);
+    $finalPrice = $result->price;
+    $appliedRules = $result->appliedRules;
 
     http_response_code(200);
     echo json_encode(
@@ -73,8 +75,10 @@ try {
             'success' => true,
             'data' => [
                 'product_id' => $product->getId(),
+                'product_name' => $product->getName(),
                 'final_price_cents' => $finalPrice->getAmount(),
-                'final_price_formatted' => 'R$ ' . number_format((float) $finalPrice->getAmount() / 100, 2, ',', '.')
+                'final_price_formatted' => 'R$ ' . number_format((float) $finalPrice->getAmount() / 100, 2, ',', '.'),
+                'applied_rules' => $appliedRules
             ]
         ]
     );
