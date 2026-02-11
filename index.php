@@ -7,6 +7,7 @@ require __DIR__ . '/vendor/autoload.php';
 use App\Domain\Entity\CalculationContext;
 use App\Domain\Entity\Product;
 use App\Domain\Factory\ProductCalculatorFactory;
+use App\Infrastructure\Repository\SQLiteProductRepository;
 use Money\Money;
 
 header('Content-Type: application/json; charset=UTF-8');
@@ -33,13 +34,20 @@ if (json_last_error() !== JSON_ERROR_NONE || empty($data)) {
 
 try {
 
-    $basePrice = Money::BRL((int) ($data['product']['base_price_cents'] ?? 0));
-    $product = new Product(
-        (int) ($data['product']['id'] ?? 0),
-        (string) ($data['product']['name'] ?? ''),
-        $basePrice,
-        (float) ($data['product']['weight'] ?? 0)
-    );
+    $dbPath = __DIR__ . '/database/database.sqlite';
+    $pdo = new PDO("sqlite:$dbPath");
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $productRepository = new SQLiteProductRepository($pdo);
+
+    $productId = (int) ($data['product_id'] ?? 0);
+    $product = $productRepository->findById($productId);
+
+    if (!$product) {
+        http_response_code(404);
+        echo json_encode(['error' => 'Product with ID ' . $productId . ' not found.']);
+        exit;
+    }
 
     $context = new CalculationContext(
         (int) ($data['context']['quantity'] ?? 0),
@@ -57,7 +65,6 @@ try {
             'success' => true,
             'data' => [
                 'product_id' => $product->getId(),
-                'original_price_cents' => $basePrice->getAmount(),
                 'final_price_cents' => $finalPrice->getAmount(),
                 'final_price_formatted' => 'R$ ' . number_format((float) $finalPrice->getAmount() / 100, 2, ',', '.')
             ]
