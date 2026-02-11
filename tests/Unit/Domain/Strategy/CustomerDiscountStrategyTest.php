@@ -44,7 +44,7 @@ class CustomerDiscountStrategyTest extends TestCase
 
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
-        $expected = $price->multiply("0.98");
+        $expected = Money::BRL(9800);
         $this->assertTrue($expected->equals($result));
     }
 
@@ -55,7 +55,7 @@ class CustomerDiscountStrategyTest extends TestCase
 
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
-        $expected = $price->multiply("0.90");
+        $expected = Money::BRL(9000);
         $this->assertTrue($expected->equals($result));
     }
 
@@ -66,8 +66,7 @@ class CustomerDiscountStrategyTest extends TestCase
 
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
-        $expected = $price->multiply("0.90");
-        $expected = $expected->multiply("0.98");
+        $expected = Money::BRL(8820);
         $this->assertTrue($expected->equals($result));
     }
 
@@ -78,7 +77,7 @@ class CustomerDiscountStrategyTest extends TestCase
 
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
-        $expected = $price->multiply("0.85");
+        $expected = Money::BRL(8500);
         $this->assertTrue($expected->equals($result));
     }
 
@@ -89,8 +88,7 @@ class CustomerDiscountStrategyTest extends TestCase
 
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
-        $expected = $price->multiply("0.85");
-        $expected = $expected->multiply("0.98");
+        $expected = Money::BRL(8330);
         $this->assertTrue($expected->equals($result));
     }
 
