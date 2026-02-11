@@ -8,6 +8,7 @@ use App\Domain\Entity\Product;
 use App\Domain\Entity\CalculationContext;
 use Money\Money;
 use App\Domain\Cache\CacheInterface;
+use App\Domain\Entity\CalculationResult;
 
 class CachedProductCalculator implements ProductCalculatorInterface
 {
@@ -16,7 +17,7 @@ class CachedProductCalculator implements ProductCalculatorInterface
         private readonly CacheInterface $cache
     ) {}
 
-    public function calculatePrice(Product $product, CalculationContext $context): Money
+    public function calculatePrice(Product $product, CalculationContext $context): CalculationResult
     {
         $cacheKey = serialize([
             $product->getId(),
@@ -27,14 +28,17 @@ class CachedProductCalculator implements ProductCalculatorInterface
         ]);
 
         if ($this->cache->has($cacheKey)) {
-            $cachedFinalPrice = $this->cache->get($cacheKey);
-            return Money::BRL($cachedFinalPrice);
+            $cachedResult = $this->cache->get($cacheKey);
+            return new CalculationResult(Money::BRL($cachedResult['price']), $cachedResult['appliedRules']);
         }
 
-        $finalPrice = $this->calculator->calculatePrice($product, $context);
+        $result = $this->calculator->calculatePrice($product, $context);
 
-        $this->cache->set($cacheKey, $finalPrice->getAmount());
+        $this->cache->set($cacheKey, [
+            'price' => $result->price->getAmount(),
+            'appliedRules' => $result->appliedRules
+        ]);
 
-        return $finalPrice;
+        return $result;
     }
 }

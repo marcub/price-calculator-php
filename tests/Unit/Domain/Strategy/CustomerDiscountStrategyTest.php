@@ -34,7 +34,7 @@ class CustomerDiscountStrategyTest extends TestCase
 
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
-        $this->assertTrue($price->equals($result));
+        $this->assertTrue($price->equals($result->price));
     }
 
     public function testDiscountForPremiumVarejoCustomer(): void
@@ -45,7 +45,7 @@ class CustomerDiscountStrategyTest extends TestCase
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
         $expected = Money::BRL(9800);
-        $this->assertTrue($expected->equals($result));
+        $this->assertTrue($expected->equals($result->price));
     }
 
     public function testDiscountForNoPremiumAtacadoCustomer(): void
@@ -56,7 +56,7 @@ class CustomerDiscountStrategyTest extends TestCase
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
         $expected = Money::BRL(9000);
-        $this->assertTrue($expected->equals($result));
+        $this->assertTrue($expected->equals($result->price));
     }
 
     public function testDiscountForPremiumAtacadoCustomer(): void
@@ -67,7 +67,7 @@ class CustomerDiscountStrategyTest extends TestCase
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
         $expected = Money::BRL(8820);
-        $this->assertTrue($expected->equals($result));
+        $this->assertTrue($expected->equals($result->price));
     }
 
     public function testDiscountForNoPremiumRevendedorCustomer(): void
@@ -78,7 +78,7 @@ class CustomerDiscountStrategyTest extends TestCase
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
         $expected = Money::BRL(8500);
-        $this->assertTrue($expected->equals($result));
+        $this->assertTrue($expected->equals($result->price));
     }
 
     public function testDiscountForPremiumRevendedorCustomer(): void
@@ -89,7 +89,7 @@ class CustomerDiscountStrategyTest extends TestCase
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
         $expected = Money::BRL(8330);
-        $this->assertTrue($expected->equals($result));
+        $this->assertTrue($expected->equals($result->price));
     }
 
 }

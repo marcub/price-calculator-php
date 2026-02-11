@@ -6,8 +6,8 @@ namespace App\Domain\Service;
 
 use App\Domain\Entity\Product;
 use App\Domain\Entity\CalculationContext;
+use App\Domain\Entity\CalculationResult;
 use App\Domain\Strategy\PricingStrategyInterface;
-use Money\Money;
 
 class ProductCalculator implements ProductCalculatorInterface
 {
@@ -18,14 +18,17 @@ class ProductCalculator implements ProductCalculatorInterface
         private readonly array $strategies
     ) {}
 
-    public function calculatePrice(Product $product, CalculationContext $context): Money
+    public function calculatePrice(Product $product, CalculationContext $context): CalculationResult
     {
         $price = $product->getBasePrice();
+        $appliedRules = [];
 
         foreach ($this->strategies as $strategy) {
-            $price = $strategy->calculate($price, $product, $context);
+            $result = $strategy->calculate($price, $product, $context);
+            $price = $result->price;
+            $appliedRules = array_merge($appliedRules, $result->appliedRules);
         }
 
-        return $price;
+        return new CalculationResult($price, $appliedRules);
     }
 }

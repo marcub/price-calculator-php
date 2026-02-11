@@ -38,7 +38,7 @@ class StateTaxStrategyTest extends TestCase
 
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
-        $this->assertTrue($price->equals($result));
+        $this->assertTrue($price->equals($result->price));
     }
 
     public function testStateTaxForStateWithOneTax(): void
@@ -49,7 +49,7 @@ class StateTaxStrategyTest extends TestCase
         $result  = $this->strategy->calculate($price, $this->product, $context);
         $expected = Money::BRL(12000);
 
-        $this->assertTrue($expected->equals($result));
+        $this->assertTrue($expected->equals($result->price));
     }
 
     public function testStateTaxForStateWithMultipleTaxes(): void
@@ -60,7 +60,7 @@ class StateTaxStrategyTest extends TestCase
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
         $expected = Money::BRL(12300);
-        $this->assertTrue($expected->equals($result));
+        $this->assertTrue($expected->equals($result->price));
     }
 
 }

@@ -34,7 +34,7 @@ class QuantityDiscountStrategyTest extends TestCase
 
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
-        $this->assertTrue($price->equals($result));
+        $this->assertTrue($price->equals($result->price));
     }
 
     public function test3percentDiscountFor10To49Items(): void
@@ -45,7 +45,7 @@ class QuantityDiscountStrategyTest extends TestCase
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
         $expected = Money::BRL(9700);
-        $this->assertTrue($expected->equals($result));
+        $this->assertTrue($expected->equals($result->price));
     }
 
     public function test5percentDiscountFor50OrMoreItems(): void
@@ -56,7 +56,7 @@ class QuantityDiscountStrategyTest extends TestCase
         $result  = $this->strategy->calculate($price, $this->product, $context);
 
         $expected = Money::BRL(9500);
-        $this->assertTrue($expected->equals($result));
+        $this->assertTrue($expected->equals($result->price));
     }
 
 }

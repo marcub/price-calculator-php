@@ -34,7 +34,7 @@ class HeavyWeightSurchargeStrategyTest extends TestCase
 
         $result  = $this->strategy->calculate($price, $lightProduct, $this->context);
 
-        $this->assertTrue($price->equals($result));
+        $this->assertTrue($price->equals($result->price));
     }
 
     public function testSurchargeForProductExactly50kg(): void
@@ -49,7 +49,7 @@ class HeavyWeightSurchargeStrategyTest extends TestCase
 
         $result  = $this->strategy->calculate($price, $exactWeightProduct, $this->context);
 
-        $this->assertTrue($price->equals($result));
+        $this->assertTrue($price->equals($result->price));
     }
 
     public function testSurchargeForHeavyProduct(): void
@@ -65,7 +65,7 @@ class HeavyWeightSurchargeStrategyTest extends TestCase
         $result  = $this->strategy->calculate($price, $heavyProduct, $this->context);
 
         $expected = Money::BRL(11500);
-        $this->assertTrue($expected->equals($result));
+        $this->assertTrue($expected->equals($result->price));
     }
 
 }

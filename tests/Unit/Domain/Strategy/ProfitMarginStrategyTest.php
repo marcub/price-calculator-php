@@ -35,7 +35,7 @@ class ProfitMarginStrategyTest extends TestCase
         $result = $strategy->calculate($price, $this->product, $this->context);
 
         $expected = Money::BRL(12000);
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, $result->price);
     }
 
     public function testCalculateProfitMarginAmount(): void
@@ -46,7 +46,7 @@ class ProfitMarginStrategyTest extends TestCase
         $result = $strategy->calculate($price, $this->product, $this->context);
 
         $expected = Money::BRL(12000);
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, $result->price);
     }
 
     public function testCalculateNoProfitMarginConfigured(): void
