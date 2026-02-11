@@ -9,7 +9,7 @@ use App\Domain\Entity\CalculationContext;
 use App\Domain\Strategy\PricingStrategyInterface;
 use Money\Money;
 
-class ProductCalculator
+class ProductCalculator implements ProductCalculatorInterface
 {
     /**
      * @param PricingStrategyInterface[] $strategies

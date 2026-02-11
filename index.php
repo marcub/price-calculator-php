@@ -7,8 +7,11 @@ require __DIR__ . '/vendor/autoload.php';
 use App\Domain\Entity\CalculationContext;
 use App\Domain\Entity\Product;
 use App\Domain\Factory\ProductCalculatorFactory;
+use App\Domain\Service\CachedProductCalculator;
+use App\Infrastructure\Cache\FileCache;
 use App\Infrastructure\Repository\SQLiteProductRepository;
 use Money\Money;
+use PHP_CodeSniffer\Util\Cache;
 
 header('Content-Type: application/json; charset=UTF-8');
 header('Access-Control-Allow-Origin: *');
@@ -56,7 +59,12 @@ try {
         (bool) ($data['context']['is_premium'] ?? false)
     );
 
-    $calculator = ProductCalculatorFactory::create();
+    $cacheDir = __DIR__ . '/storage/cache';
+    $fileCache = new FileCache($cacheDir);
+
+    $baseCalculator = ProductCalculatorFactory::create();
+    $calculator = new CachedProductCalculator($baseCalculator, $fileCache);
+
     $finalPrice = $calculator->calculatePrice($product, $context);
 
     http_response_code(200);
