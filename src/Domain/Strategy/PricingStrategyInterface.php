@@ -8,7 +8,7 @@ use App\Domain\Entity\CalculationContext;
 use App\Domain\Entity\Product;
 use Money\Money;
 
-interface PriceModifierInterface
+interface PricingStrategyInterface
 {
     /**
      * Calculate the price adjustment.

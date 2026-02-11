@@ -6,13 +6,13 @@ namespace App\Domain\Service;
 
 use App\Domain\Entity\Product;
 use App\Domain\Entity\CalculationContext;
-use App\Domain\Strategy\PriceModifierInterface;
+use App\Domain\Strategy\PricingStrategyInterface;
 use Money\Money;
 
 class ProductCalculator
 {
     /**
-     * @param PriceModifierInterface[] $strategies
+     * @param PricingStrategyInterface[] $strategies
      */
     public function __construct(
         private readonly array $strategies

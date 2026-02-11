@@ -9,6 +9,7 @@ use App\Domain\Strategy\QuantityDiscountStrategy;
 use App\Domain\Strategy\StateTaxStrategy;
 use App\Domain\Strategy\HeavyWeightSurchargeStrategy;
 use App\Domain\Strategy\CustomerDiscountStrategy;
+use App\Domain\Strategy\ProfitMarginStrategy;
 
 class ProductCalculatorFactory
 {
@@ -20,6 +21,7 @@ class ProductCalculatorFactory
         ];
 
         $strategies = [
+            new ProfitMarginStrategy(profitMarginPercentage: 0.20),
             new QuantityDiscountStrategy(),
             new CustomerDiscountStrategy(),
             new HeavyWeightSurchargeStrategy(),

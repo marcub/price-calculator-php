@@ -8,7 +8,7 @@ use App\Domain\Entity\Product;
 use App\Domain\Entity\CalculationContext;
 use Money\Money;
 
-class QuantityDiscountStrategy implements PriceModifierInterface
+class QuantityDiscountStrategy implements PricingStrategyInterface
 {
     public function calculate(
         Money $price,
