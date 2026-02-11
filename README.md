@@ -20,6 +20,7 @@ O projeto foi estruturado seguindo princípios de **Domain-Driven Design (DDD)**
 * **SQLite** (Banco de dados embarcado para facilidade de testes)
 * **PHPUnit** (Testes Automatizados)
 * **Composer** (Gerenciamento de dependências e Autoload PSR-4)
+* **Docker** (Opcional - Containerização do ambiente)
 
 ---
 
@@ -43,6 +44,16 @@ Execute o script de setup para criar o banco SQLite e popular com produtos de te
 3. **Inciar Servidor:**
    ```bash
    php -S localhost:8000
+   ```
+
+### Opção 2: Via Docker (Recomendado)
+
+Se preferir não configurar o ambiente localmente, utilize o Docker:
+
+   ```bash
+   docker compose up -d
+   docker compose exec app composer install
+   docker compose exec app php database/setup.php
    ```
 
 A API estará disponível em: `http://localhost:8000/api/calculate`
