@@ -8,7 +8,7 @@ use App\Domain\Entity\Product;
 use App\Domain\Entity\CalculationContext;
 use Money\Money;
 
-class StateTaxStrategy implements PriceModifierInterface
+class StateTaxStrategy implements PricingStrategyInterface
 {
 
     /**

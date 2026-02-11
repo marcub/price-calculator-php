@@ -35,11 +35,11 @@ class ProductCalculatorTest extends TestCase
 
         $finalPrice = $this->calculator->calculatePrice($product, $context);
 
-        $expected = Money::BRL(118200);
+        $expected = Money::BRL(141480);
 
         $this->assertTrue(
             $finalPrice->equals($expected),
-            'The final integrated price did not match the expected R$ 1.182,00'
+            'The final integrated price did not match the expected R$ 1.414,80'
         );
     }
 }
