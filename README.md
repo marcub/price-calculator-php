@@ -135,7 +135,7 @@ composer test
 
 ---
 
-## 🎨 Padrões de Código
+## Padrões de Código
 
 O projeto segue estritamente a **PSR-12** para garantir a consistência e legibilidade do código. A verificação é automatizada via **PHP_CodeSniffer**.
 
