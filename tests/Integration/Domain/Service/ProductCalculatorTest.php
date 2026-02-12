@@ -13,7 +13,6 @@ use Money\Money;
 
 class ProductCalculatorTest extends TestCase
 {
-
     private ProductCalculatorInterface $calculator;
 
     protected function setUp(): void
@@ -52,4 +51,3 @@ class ProductCalculatorTest extends TestCase
         );
     }
 }
-

@@ -6,7 +6,7 @@ namespace App\Infrastructure\Cache;
 
 use App\Domain\Cache\CacheInterface;
 
-class FileCache implements CacheInterface 
+class FileCache implements CacheInterface
 {
     public function __construct(
         private readonly string $cacheDir

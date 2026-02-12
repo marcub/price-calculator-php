@@ -16,7 +16,9 @@ class ProfitMarginStrategy implements PricingStrategyInterface
         private readonly ?Money $profitMarginAmount = null
     ) {
         if ($this->profitMarginPercentage === null && $this->profitMarginAmount === null) {
-            throw new \InvalidArgumentException("You must provide either a profit margin percentage or a profit margin amount.");
+            throw new \InvalidArgumentException(
+                "You must provide either a profit margin percentage or a profit margin amount."
+            );
         }
     }
 

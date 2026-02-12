@@ -11,11 +11,11 @@ use Money\Money;
 
 class SQLiteProductRepository implements ProductRepositoryInterface
 {
-
     public function __construct(
         private readonly PDO $pdo
-    ){}
-    
+    ) {
+    }
+
     public function findById(int $id): ?Product
     {
         $stmt = $this->pdo->prepare("SELECT * FROM products WHERE id = :id");

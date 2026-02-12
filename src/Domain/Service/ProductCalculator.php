@@ -16,7 +16,8 @@ class ProductCalculator implements ProductCalculatorInterface
      */
     public function __construct(
         private readonly array $strategies
-    ) {}
+    ) {
+    }
 
     public function calculatePrice(Product $product, CalculationContext $context): CalculationResult
     {

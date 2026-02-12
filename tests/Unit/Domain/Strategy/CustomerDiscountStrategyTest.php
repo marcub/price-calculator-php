@@ -12,7 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class CustomerDiscountStrategyTest extends TestCase
 {
-
     private CustomerDiscountStrategy $strategy;
     private Product $product;
 
@@ -91,5 +90,4 @@ class CustomerDiscountStrategyTest extends TestCase
         $expected = Money::BRL(8330);
         $this->assertTrue($expected->equals($result->price));
     }
-
 }

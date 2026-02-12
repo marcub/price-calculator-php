@@ -11,14 +11,14 @@ use Money\Money;
 
 class StateTaxStrategy implements PricingStrategyInterface
 {
-
     /**
-     * @param array<string, array<string, float>> $taxRates 
+     * @param array<string, array<string, float>> $taxRates
      * Example: ['SP' => ['ICMS' => 0.18, 'IPI' => 0.05], 'RJ' => ['ICMS' => 0.20]]
      */
     public function __construct(
         private readonly array $taxRates
-    ) {}
+    ) {
+    }
 
     public function calculate(
         Money $price,

@@ -12,7 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class StateTaxStrategyTest extends TestCase
 {
-
     private StateTaxStrategy $strategy;
     private Product $product;
 
@@ -62,5 +61,4 @@ class StateTaxStrategyTest extends TestCase
         $expected = Money::BRL(12300);
         $this->assertTrue($expected->equals($result->price));
     }
-
 }

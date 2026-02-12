@@ -12,7 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class QuantityDiscountStrategyTest extends TestCase
 {
-
     private QuantityDiscountStrategy $strategy;
     private Product $product;
 
@@ -58,5 +57,4 @@ class QuantityDiscountStrategyTest extends TestCase
         $expected = Money::BRL(9500);
         $this->assertTrue($expected->equals($result->price));
     }
-
 }

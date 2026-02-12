@@ -13,7 +13,8 @@ class Product
         private readonly string $name,
         private readonly Money $basePrice,
         private readonly float $weight,
-    ) {}
+    ) {
+    }
 
     public function getId(): int
     {
