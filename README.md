@@ -55,7 +55,7 @@ O projeto foi estruturado seguindo princípios de **Domain-Driven Design (DDD)**
 * **Docker** (Opcional - Containerização do ambiente)
 
 
-## ⚙️ Instalação e Configuração
+## Instalação e Configuração
 
 ### Opção 1: Instalação Local (Requer PHP 8.1+ e Composer)
 
