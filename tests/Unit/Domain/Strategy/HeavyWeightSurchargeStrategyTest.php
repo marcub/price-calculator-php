@@ -12,7 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class HeavyWeightSurchargeStrategyTest extends TestCase
 {
-
     private HeavyWeightSurchargeStrategy $strategy;
     private CalculationContext $context;
 
@@ -67,5 +66,4 @@ class HeavyWeightSurchargeStrategyTest extends TestCase
         $expected = Money::BRL(11500);
         $this->assertTrue($expected->equals($result->price));
     }
-
 }

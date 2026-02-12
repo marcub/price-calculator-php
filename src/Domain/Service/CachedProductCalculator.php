@@ -15,7 +15,8 @@ class CachedProductCalculator implements ProductCalculatorInterface
     public function __construct(
         private readonly ProductCalculatorInterface $calculator,
         private readonly CacheInterface $cache
-    ) {}
+    ) {
+    }
 
     public function calculatePrice(Product $product, CalculationContext $context): CalculationResult
     {

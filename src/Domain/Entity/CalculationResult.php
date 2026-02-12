@@ -11,5 +11,6 @@ class CalculationResult
     public function __construct(
         public readonly Money $price,
         public readonly array $appliedRules
-    ) {}
+    ) {
+    }
 }

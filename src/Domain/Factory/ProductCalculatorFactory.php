@@ -25,7 +25,10 @@ class ProductCalculatorFactory
         $profitMarginAmount = $isPercentage ? null : $marginValue;
 
         $strategies = [
-            new ProfitMarginStrategy(profitMarginPercentage: $profitMarginPercentage, profitMarginAmount: $profitMarginAmount),
+            new ProfitMarginStrategy(
+                profitMarginPercentage: $profitMarginPercentage,
+                profitMarginAmount: $profitMarginAmount
+            ),
             new QuantityDiscountStrategy(),
             new CustomerDiscountStrategy(),
             new HeavyWeightSurchargeStrategy(),

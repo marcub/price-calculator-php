@@ -46,7 +46,7 @@ Execute o script de setup para criar o banco SQLite e popular com produtos de te
    php -S localhost:8000
    ```
 
-### Opção 2: Via Docker (Recomendado)
+### Opção 2: Via Docker
 
 Se preferir não configurar o ambiente localmente, utilize o Docker:
 
@@ -131,6 +131,27 @@ ou
 
 ```bash
 composer test
+```
+
+---
+
+## 🎨 Padrões de Código
+
+O projeto segue estritamente a **PSR-12** para garantir a consistência e legibilidade do código. A verificação é automatizada via **PHP_CodeSniffer**.
+
+### Como verificar o estilo:
+Para checar se o código está em conformidade com a PSR-12:
+
+```bash
+composer check-style
+```
+
+### Como corrigir automaticamente:
+
+O projeto inclui o `phpcbf` para corrigir automaticamente a maioria dos erros de formatação:
+
+```bash
+composer fix-style
 ```
 
 ---
